@@ -63,24 +63,19 @@ class VideoDataset(Dataset):
 
 
 class DeepFakeDetector(nn.Module):
-    # Use the same parameters as in your successful training run
-    # (assuming these were the final ones for the saved model)
     def __init__(self, num_classes=2, latent_dim=2048, lstm_layers=1,
-                 hidden_dim=512,  # Changed from 512
-                 bidirectional_lstm=False,  # Changed from False
-                 dropout_rate=0.5): # Keep dropout consistent, or match training
+                 hidden_dim=512,  # Ensure this matches the trained model
+                 bidirectional_lstm=False, # Ensure this matches the trained model
+                 dropout_rate=0.5):
         super(DeepFakeDetector, self).__init__()
-        # CRITICAL: Load with pre-trained weights
         cnn_model = models.resnext50_32x4d(weights=models.ResNeXt50_32X4D_Weights.IMAGENET1K_V2)
         self.cnn_features = nn.Sequential(*list(cnn_model.children())[:-2])
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-
         self.lstm = nn.LSTM(input_size=latent_dim, hidden_size=hidden_dim,
                             num_layers=lstm_layers, bidirectional=bidirectional_lstm,
                             batch_first=True)
-
-        lstm_fc_input_dim = hidden_dim * 2 if bidirectional_lstm else hidden_dim
-        self.fc = nn.Linear(lstm_fc_input_dim, num_classes)
+        lstm_output_dim = hidden_dim * 2 if bidirectional_lstm else hidden_dim
+        self.fc = nn.Linear(lstm_output_dim, num_classes)
         self.dropout = nn.Dropout(dropout_rate)
 
     def forward(self, x):
@@ -91,18 +86,10 @@ class DeepFakeDetector(nn.Module):
         flattened_out = pooled_out.view(batch_size * seq_length, -1)
         lstm_input = flattened_out.view(batch_size, seq_length, -1)
 
-        # Use final hidden state(s) from LSTM
-        _, (h_n, _) = self.lstm(lstm_input)
+        lstm_out, _ = self.lstm(lstm_input) # Get all sequence outputs
+        final_lstm_out = torch.mean(lstm_out, dim=1) # Take the mean across the sequence dimension
 
-        if self.lstm.bidirectional:
-            # h_n shape for single layer: (2 * num_layers, batch, hidden_dim) -> (2, batch, hidden_dim)
-            # Concatenate the last hidden state of forward and backward LSTM
-            final_hidden_state = torch.cat((h_n[0, :, :], h_n[1, :, :]), dim=1)
-        else:
-            # h_n shape for single layer: (1 * num_layers, batch, hidden_dim) -> (1, batch, hidden_dim)
-            final_hidden_state = h_n.squeeze(0) # Or h_n[-1, :, :] if lstm_layers > 1
-
-        out = self.dropout(final_hidden_state)
+        out = self.dropout(final_lstm_out)
         out = self.fc(out)
         return out
 

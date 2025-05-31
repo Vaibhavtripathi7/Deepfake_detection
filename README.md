@@ -116,8 +116,9 @@ The model was trained for 7.54 minutes using GPU acceleration.
 *   **Validation Samples**: 171
 *   **Best Validation AUC**: 0.9034
 *   The training progress plots (Loss, Accuracy, AUC) are shown below:
-
+```
     ![Training Plots](Result Images/Untitled.png)
+```
 
 ### Test Set Evaluation
 *   **Total Test Samples**: 61

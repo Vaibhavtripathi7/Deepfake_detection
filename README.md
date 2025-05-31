@@ -70,7 +70,7 @@ The script takes raw videos as input, detects faces in each frame using MediaPip
 **Configuration**:
 The script uses the following important constants defined at the top of `preprocessing.py`:
 *   `RAW_DATASET_BASE_PATH`: Path to your raw dataset (e.g., `/home/vaibhav/PROJECTS/deepfake_dataset`). This directory should contain `train/real`, `train/fake`, `test/real`, and `test/fake` subfolders with your original `.mp4` videos.
-*   `PROCESSED_DATASET_BASE_PATH`: Path where the processed face videos will be saved (e.g., `/home/vaibhav/PROJECTS/processed_dataset_faces_mediapipe_2`). The script will create `train/real_faces`, `train/fake_faces`, etc., subfolders here.
+*   `PROCESSED_DATASET_BASE_PATH`: Path where the processed face videos will be saved (e.g., `/home/vaibhav/PROJECTS/processed_dataset_faces_mediapipe`). The script will create `train/real_faces`, `train/fake_faces`, etc., subfolders here.
 *   `OUTPUT_FACE_VIDEO_SIZE`: Target size for the cropped face videos (default: 112x112).
 *   `FRAMES_TO_PROCESS_PER_VIDEO`: Maximum number of frames to process from each input video (default: 150).
 *   `MIN_DETECTION_CONFIDENCE`: Minimum confidence for MediaPipe face detection (default: 0.5).
@@ -136,7 +136,7 @@ The model was trained for 7.54 minutes using GPU acceleration.
 *   **Confusion Matrix**:
 
     ```
-    ![Confusion Matrix](Deepfake_detection/Result Images/result_72.png)
+    ![Confusion Matrix](Result Images/result_72.png)
     ```
     
     The matrix shows the following distribution of predictions:

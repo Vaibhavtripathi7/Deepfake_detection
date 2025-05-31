@@ -75,7 +75,7 @@ class VideoDataset(Dataset):
         return frames_tensor, torch.tensor(label, dtype=torch.long)
 
 class DeepFakeDetector(nn.Module):
-    def __init__(self, num_classes=2, latent_dim=2048, lstm_layers=1, hidden_dim=512, bidirectional_lstm=False, dropout_rate=0.5):
+    def __init__(self, num_classes=2, latent_dim=2048, lstm_layers=1, hidden_dim=64, bidirectional_lstm=False, dropout_rate=0.5):
         super(DeepFakeDetector, self).__init__()
         cnn_model = models.resnext50_32x4d(weights=models.ResNeXt50_32X4D_Weights.IMAGENET1K_V2)
         self.cnn_features = nn.Sequential(*list(cnn_model.children())[:-2])

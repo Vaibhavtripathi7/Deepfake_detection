@@ -1,6 +1,7 @@
 # Deepfake Video Detection Project
----
-<img src="Result Images/deepfake_cover_page.jpg" alt="" > 
+
+<img src="Result Images/deepfake_cover_page.jpg" alt="" width = 600px> 
+
 ---
 
 This project implements a deep learning model to detect deepfake videos. It utilizes a ResNeXt50 convolutional neural network (CNN) for spatial feature extraction from video frames and a Long Short-Term Memory (LSTM) network to capture temporal dependencies across frames.

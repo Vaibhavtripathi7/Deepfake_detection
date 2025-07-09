@@ -129,9 +129,9 @@ The model was trained for 7.54 minutes using GPU acceleration.
     *   F1-Score (for REAL class): 0.7213
     *   AUC: 0.8028
       
-    ```
-      ![Resutls](Result Images/Screenshot_20250601_024157.png)
-    ```
+
+      <img src="Result Images/Screenshot_20250601_024157.png" alt="" > 
+
     
 *   **Confusion Matrix**:
 

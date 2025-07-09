@@ -1,6 +1,6 @@
 # Deepfake Video Detection Project
 
-<img src="Result Images/deepfake_cover_page.jpg" alt="" width = 600px> 
+<img src="Result Images/deepfake_cover_page.jpg" alt="" style = "width:100%; height:auto;" > 
 
 ---
 

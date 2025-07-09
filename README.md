@@ -135,9 +135,9 @@ The model was trained for 7.54 minutes using GPU acceleration.
     
 *   **Confusion Matrix**:
 
-    ```
+    
      <img src="Result Images/result_72.png" alt="" > 
-    ```
+    
     
     The matrix shows the following distribution of predictions:
 
